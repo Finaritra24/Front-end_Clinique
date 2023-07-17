@@ -15,6 +15,7 @@ export default function NavAdmin() {
       
         fetch('http://localhost:8081/deconnexion', {
           method: 'GET',
+          method: 'GET',
           headers: { 'Content-Type': 'application/json' },
           credentials: 'include'
         })
@@ -41,6 +42,11 @@ export default function NavAdmin() {
                 label: 'Recette',
                 icon: 'pi pi-fw pi-file',
                 command: () => handleNavigation('/recette'),
+                },
+                {
+                    label: 'Patient',
+                    icon: 'pi pi-fw pi-file',
+                    command: () => handleNavigation('/patient'),
                 }
             ],
         },

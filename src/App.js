@@ -4,6 +4,8 @@ import AjoutAdmin from "./admin/AjoutAdmin";
 import Depense from "./admin/depense/Depense";
 import ModifDepense from "./admin/depense/ModifDepense";
 import LoginAdmin from "./admin/LoginAdmin";
+import ModifPatient from "./admin/patient/ModifPatient";
+import Patient from "./admin/patient/Patient";
 import ModifRecette from "./admin/recette/ModifRecette";
 import Recette from "./admin/recette/Recette";
 import './App.css';
@@ -39,6 +41,9 @@ function App() {
       <Route exact path="/user" element={<LoginUser />} />
       <Route exact path="/ajoutuser" element={<AjoutUser/>} />
       <Route exact path="/accueiluser" element={<AccueilUser />} />
+      {/* patient */}
+      <Route exact path="/patient" element={<Patient />} />
+      <Route exact path="/modifpatient" element={<ModifPatient />} />
     </Routes>
     </div>
     </Router>
