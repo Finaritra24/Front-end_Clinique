@@ -1,0 +1,69 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,300,500);
+body {
+  font: 100% Roboto, sans-serif;
+  background-image: url("http://wallpapercave.com/wp/aZlqiAT.png ")  ;
+  /* http://wallpapercave.com/wp/aZlqiAT.png */
+  background-size: cover;
+  
+  /* padding: 50px; */
+}
+.App {
+  text-align: center;
+}
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+body, html {
+  margin: 0;
+  padding: 0;
+}
+
+/* .background {
+  background-image: url("https://img.freepik.com/vecteurs-libre/cyber-lundi-boutique_24908-58235.jpg?w=740&t=st=1688909332~exp=1688909932~hmac=18421dfcda8093f569cda3e87d9495d29d265cee71ce010d5b9bc9caf2dc5933");
+  background-repeat: repeat;
+  background-size: auto;
+  background-attachment: fixed;
+  height: 100vh;
+  top:0!important;
+  margin:0!important;
+  width:100%;
+} */
+.myHeader{
+  font-family: monospace;
+  font-size:xx-large;
+  color: 'var(--primary-color)';
+  background: #072130;
+  margin-top: -2%;
+  margin-bottom: -1.8%;
+  text-align: center;
+}
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
