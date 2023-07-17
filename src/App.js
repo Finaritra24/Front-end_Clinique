@@ -10,6 +10,8 @@ import ModifRecette from "./admin/recette/ModifRecette";
 import Recette from "./admin/recette/Recette";
 import './App.css';
 import AccueilUser from "./user/AccueilUser";
+import AchatPatient from "./user/AchatPatient/AchatPatient";
+import ModifAchatPatient from "./user/AchatPatient/ModifAchatPatient";
 import AjoutUser from "./user/AjoutUser";
 import LoginUser from "./user/LoginUser";
 
@@ -44,6 +46,9 @@ function App() {
       {/* patient */}
       <Route exact path="/patient" element={<Patient />} />
       <Route exact path="/modifpatient" element={<ModifPatient />} />
+      {/* achatpatient */}
+      <Route exact path="/clirecette" element={<AchatPatient />} />
+      <Route exact path="/modifachatPatient" element={<ModifAchatPatient />} />
     </Routes>
     </div>
     </Router>

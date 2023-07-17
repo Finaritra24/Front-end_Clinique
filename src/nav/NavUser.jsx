@@ -42,11 +42,6 @@ export default function NavUser() {
                 label: 'Achat patient',
                 icon: 'pi pi-fw pi-file',
                 command: () => handleNavigation('/clirecette'),
-                },
-                {
-                    label: 'Patient',
-                    icon: 'pi pi-fw pi-file',
-                    command: () => handleNavigation('/patient'),
                 }
             ],
         },

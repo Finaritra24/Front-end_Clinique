@@ -3,11 +3,11 @@ import { Accordion, AccordionTab } from 'primereact/accordion';
 import NavAdmin from '../../nav/NavAdmin';
 import AjoutAchatPatient from './AjoutAchatPatient';
 import ListAchatPatient from './ListAchatPatient';
-import IfAdmin from '../IfAdmin';
+import IfUser from '../IfUser';
         
 export default function AchatPatient() {
   
-    const userId =IfAdmin();
+    const userId =IfUser();
   return (
     <div>
         <NavAdmin/>
