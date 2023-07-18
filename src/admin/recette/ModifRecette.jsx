@@ -6,10 +6,15 @@ import { Dialog } from 'primereact/dialog';
 import { Password } from 'primereact/password';
 import { InputText } from 'primereact/inputtext';
 import { Fieldset } from 'primereact/fieldset';
+import { Divider } from 'primereact/divider';
+import { InputNumber } from 'primereact/inputnumber';
 // import { useNavigate } from 'react-router-dom';
 export default function ModifRecette() {
     const navigate=useNavigate();
     const [selectedFile, setSelectedFile] = useState(null);
+    
+  const[budget,setBudget]=useState('');
+  const [code,setCode]=useState('');
     // const id=Cookies.get('userId');
     //ajout
     //ajout-component
@@ -53,6 +58,8 @@ export default function ModifRecette() {
           const data = {
             nom: nom,
             img: base64Image,
+          budget:budget,
+          code:code
           };
   
           sendFormData(data);
@@ -118,28 +125,45 @@ if (recette === null) {
                   <Fieldset legend="Modifier un recette" style={{width:'60%', margin:'auto'}}>
                      <h1>Modifier CategorieRecette</h1>
            
-                      <div className="flex flex-column md:flex-row">
-                        <div className="w-full md:w-5 flex flex-column align-items-s justify-content-center gap-3 py-5">
-                          <div className="flex flex-wrap justify-content-center align-items-center gap-2">
-                              <label htmlFor="username" className="w-6rem">
-                                  Nom :
-                              </label>
-                            <InputText value={nom} onChange={(e) => setNom(e.target.value)} />
-                          </div>
-                          
-                        </div>   
-                        <div className="flex flex-wrap  gap-2">
-                          <div className="w-full md:w-5 flex flex-column align-items-s justify-content-center gap-3 py-5">
-                            <input type="file" name="file" accept="image/*" onChange={handleFileInputChange} />
-                          </div>
-                      </div>
-                      </div>
-                    <div className="w-full md:w-5 flex flex-column align-items-s justify-content-center gap-3 py-5">
-                      
-                      <div className="flex flex-wrap justify-content-center align-items-center gap-2">
+                     <div className="flex flex-column md:flex-row">
+          <div className="w-full md:w-5 flex flex-column align-items-s justify-content-center gap-3 py-5">
+            <div className="flex flex-wrap  gap-2">
+              <label htmlFor="Nom" className="font-bold block mb-2">
+                Nom :
+              </label>
+              <InputText value={nom} onChange={(e) => setNom(e.target.value)} />
+            </div>
+            <div className="flex flex-wrap  gap-2">
+              <label htmlFor="Nom" className="font-bold block mb-2">
+                Code :
+              </label>
+              <InputText value={code} onChange={(e) => setCode(e.target.value)} maxLength={3} />
+            </div>
+          </div>
+          <div className="w-full md:w-2">
+            <Divider layout="vertical" className="hidden md:flex" />
+            <Divider layout="horizontal" className="flex md:hidden" align="center" />
+          </div>
+          <div className="w-full md:w-5 flex flex-column align-items-s justify-content-center gap-3 py-5">
+          <div className="flex flex-wrap gap-2">
+              <label htmlFor="carburant" className="font-bold block mb-2">
+                Budget:
+              </label>
+              <InputNumber
+                inputId="minmaxfraction"
+                value={budget}
+                onValueChange={(e) => setBudget(e.value)}
+                minFractionDigits={2}
+                maxFractionDigits={2}
+              />
+            </div>
+            <input type="file" name="file" accept="image/*" onChange={handleFileInputChange} />
+          </div>
+          
+        </div>
+        <div className="flex flex-wrap justify-content-center align-items-center gap-2">
                             <Button label="Modifier" icon="pi pi-plus" className="w-10rem mx-auto" onClick={() => setShowPasswordDialog(true)}></Button>
                       </div>
-                    </div>
                     </Fieldset>
                 {/* </form> */}
                 <Dialog header="Vérification de mot de passe" visible={showPasswordDialog} modal onHide={() => setShowPasswordDialog(false)}>

@@ -92,7 +92,7 @@ export default function ListPatient() {
                             <Column sortable field="nom" header="nom" style={{ width: '25%' }}></Column>
                             <Column sortable field="prenom" header="prenom" style={{ width: '25%' }}></Column>
                             <Column sortable field="dateNaissance" header="date de naissance" style={{ width: '25%' }}></Column>
-                            <Column sortable field="idgenre" header="idgenre" style={{ width: '25%' }}></Column>
+                            <Column sortable field="idGenre" header="Genre" style={{ width: '25%' }}></Column>
                             <Column sortable field="remboursement" header="remboursement" style={{ width: '25%' }}></Column>
                             <Column header="Image" body={imageBodyTemplate}></Column>
                             <Column   field="button" header="button" style={{ width: '25%' }}

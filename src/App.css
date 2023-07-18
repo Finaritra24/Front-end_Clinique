@@ -52,11 +52,11 @@ body, html {
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: rgb(26, 20, 20)
 }
 
 .App-link {
-  color: #61dafb;
+  color: #4fbad8;
 }
 
 @keyframes App-logo-spin {
@@ -66,4 +66,48 @@ body, html {
   to {
     transform: rotate(360deg);
   }
+}
+
+body {
+  background-color: #f2f2f2;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 20px;
+}
+
+h1 {
+  color: #333;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+  color:rgb(131, 134, 146);
+}
+
+table th,
+table td {
+  padding: 10px;
+  text-align: left;
+  border: 1px solid rgb(53, 53, 53);
+  color:rgb(141, 132, 132);
+}
+
+button {
+  background-color: #4caf50;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.footer{
+  color:black;
+}
+.button-container {
+  text-align: center;
+  margin-top: 20px;
 }

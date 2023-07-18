@@ -87,36 +87,14 @@ export default function ListDepenseClinique() {
       });
   };
 
-  const [currentDate, setCurrentDate] = useState('');
-
-  useEffect(() => {
-    const today = new Date();
-    const year = today.getFullYear();
-    const month = String(today.getMonth() + 1).padStart(2, '0');
-    const day = String(today.getDate()).padStart(2, '0');
-
-    const formattedDate = `${year}-${month}-${day}`;
-    setCurrentDate(formattedDate);
-  }, []);
-
-  const dataTableRef = useRef(null);
-
-  useEffect(() => {
-    // Mettre à jour la valeur du filtre lorsque currentDate change
-    if (dataTableRef.current) {
-      dataTableRef.current.filter(currentDate, 'dateDepense', 'equals');
-    }
-  }, [currentDate]);
-
   return (
     <div id="partiePdf">
       <div className="card">
         <DataTable
-          ref={dataTableRef}
           value={depenses}
           paginator
           rows={5}
-          rowsPerPageOptions={[5, 10, 25, 50]}
+          rowsPerPageOptions={[5, 10, 25, 50,400]}
           tableStyle={{ minWidth: '50rem' }}
           filterDisplay="row"
         >

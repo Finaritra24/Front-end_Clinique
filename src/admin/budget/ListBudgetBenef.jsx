@@ -4,6 +4,7 @@ import { Column } from 'primereact/column';
 import * as XLSX from 'xlsx';
 import GeneratePdf from '../../pdf/GeneratePdf';
 import { Button } from 'primereact/button';
+import { InputText } from 'primereact/inputtext';
 
 export default function ListBudgetBenef() {
   const [recettes, setRecettes] = useState([]);
@@ -42,6 +43,7 @@ export default function ListBudgetBenef() {
     data.forEach(item => {
       total += item.reel;
     });
+    total=Math.round(total);
     return total;
   };
 
@@ -50,28 +52,70 @@ export default function ListBudgetBenef() {
     data.forEach(item => {
       total += item.budget;
     });
+    total=Math.round(total);
     return total;
   };
 
   const getPercentage = (reel, budget) => {
-    return (reel / budget) * 100;
+    let total= (reel / budget) * 100;
+    total=Math.round(total);
+    return total;
   };
 
   const getDifference = (reel, budget) => {
-    return reel - budget;
+    return Math.round(reel - budget);
   };
   const benefrecette=getTotalReel(recettes)-getTotalReel(depenses);
   const benefdepense=getTotalBudget(recettes)-getTotalBudget(depenses);
   const benefice=[
-    {nom:"Recette",reel:getTotalReel(recettes),budget:getTotalBudget(recettes),realisation:getPercentage(getTotalReel(recettes),getTotalBudget(recettes))},
-    {nom:"Depense",reel:getTotalReel(depenses),budget:getTotalBudget(depenses),realisation:getPercentage(getTotalReel(depenses),getTotalBudget(depenses))},
-    {nom:"",reel:getTotalReel(recettes)-getTotalReel(depenses),budget:getTotalBudget(recettes)-getTotalBudget(depenses),realisation:getPercentage(benefrecette,benefdepense)}
+    {nom:"Recette",reel:getTotalReel(recettes),budget:getTotalBudget(recettes),realisation:Math.round(getPercentage(getTotalReel(recettes),getTotalBudget(recettes)))},
+    {nom:"Depense",reel:getTotalReel(depenses),budget:getTotalBudget(depenses),realisation:Math.round(getPercentage(getTotalReel(depenses),getTotalBudget(depenses)))},
+    {nom:"",reel:getTotalReel(recettes)-getTotalReel(depenses),budget:getTotalBudget(recettes)-getTotalBudget(depenses),realisation:Math.round(getPercentage(benefrecette,benefdepense))}
   ];
+  const [annee,setAnnee]=useState('');
+  const [mois,setMois]=useState('');
+  const changeAnnee = () => {
+    fetch('http://localhost:8081/setCookie-Budget', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id:annee}),
+      credentials: 'include'
+    })
+    .then(response => {
+      if (response.ok) {
+      }
+    })
+    .catch(error => {
+      console.error(error);
+    });
+    }
+    const changeMois = () => {
+      fetch('http://localhost:8081/setCookie-BudgetBenef', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id:annee}),
+        credentials: 'include'
+      })
+      .then(response => {
+        if (response.ok) {
+        }
+      })
+      .catch(error => {
+        console.error(error);
+      });
+      }
+      const change=()=>{
+        changeAnnee();
+        changeMois();
+      }
   return (
     <div>
       <div>
         <p>Recette : </p>
         <div id="partiePdf">
+          <InputText value={mois} placeholder="Mois" onChange={(e) => setMois(e.target.value)} />
+          <InputText value={annee} placeholder="Annee" onChange={(e) => setAnnee(e.target.value)} />
+              <Button label="Changer" icon="pi pi-plus" className="w-10rem mx-auto" onClick={change}/>
           <div className="card">
             <DataTable value={recettes} paginator rows={5} rowsPerPageOptions={[5, 10, 25, 50]} tableStyle={{ minWidth: '50rem' }}>
               <Column sortable field="typeacte" header="Type acte" style={{ width: '25%' }}></Column>

@@ -96,16 +96,8 @@ export default function ListAchatPatient() {
 
   const dataTableRef = useRef(null);
 //Generer pdf
-  const [selectedProducts, setSelectedProducts] = useState('');
-const refpdf=useRef(null);
+  const [selectedProducts, setSelectedProducts] = useState([]);
 
-  useEffect(() => {
-    // Mettre à jour la valeur du filtre lorsque currentDate change
-    if (dataTableRef.current) {
-      dataTableRef.current.filter(currentDate, 'dateRecette', 'contains');
-      dataTableRef.current.filter(nom, 'nom', 'contains');
-    }
-  }, [currentDate]);
   const [rowClick, setRowClick] = useState(true);
   const [showPasswordDialog, setShowPasswordDialog] = useState(false);
   function handlePasswordSubmit(event) {
@@ -121,7 +113,6 @@ const refpdf=useRef(null);
           <label htmlFor="input-rowclick">Row Click</label>
       </div>
         <DataTable
-          ref={dataTableRef}
           value={achatPatients}
           paginator
           rows={5}
@@ -152,21 +143,44 @@ const refpdf=useRef(null);
                               }} >
                             </Column>
                         </DataTable>
-                        <button onClick={() => setShowPasswordDialog(true)}>Générer PDF</button>
+                        <button onClick={() => setShowPasswordDialog(true)}>Valider</button>
                         <button onClick={generateExcel}>Générer excel</button>
                     </div>
                     <Dialog header="Pdf" visible={showPasswordDialog} modal onHide={() => setShowPasswordDialog(false)}>
                       <div>
-                                <div id="partiePdf" ref={refpdf}>
-                                <DataTable value={selectedProducts} paginator rows={5} 
-                                 tableStyle={{ minWidth: '50rem' }} >
-                                <Column sortable field="nomPatient" header="nomPatient" style={{ width: '25%' }}></Column>
-                                <Column sortable field="idAchatPatient" header="idAchatPatient" style={{ width: '25%' }}></Column>
-                                <Column sortable field="nom" header="nom"  style={{ width: '25%' }}></Column>
-                                <Column sortable field="nomCateg" header="nomCateg" style={{ width: '25%' }}></Column>
-                                <Column sortable field="prix" header="prix" style={{ width: '25%' }}></Column>
-                              </DataTable>
-                              </div>
+                      <div id="partiePdf">
+                        <div class="invoice">
+                          <div class="header">
+                            <h1>Facture Actes</h1>
+                          </div>
+                          <table>
+                            <thead>
+                              <tr>
+                                <th>Date</th>
+                                <th>Nom d'utilisateur</th>
+                                <th>Nom</th>
+                                <th>Catégorie</th>
+                                <th>Prix</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {selectedProducts.map((depense) => (
+                                <tr>
+                                  <td>{depense.dateRecette}</td>
+                                  <td>{depense.nomPatient}</td>
+                                  <td>{depense.nom}</td>
+                                  <td>{depense.nomCateg}</td>
+                                  <td>{depense.prix}</td>
+                                </tr>
+                              ))}
+                            </tbody>
+                          </table>
+                          <div class="footer">
+                            <p>Signature :</p>
+                          </div>
+                        </div>
+                      </div>
+
                               <button onClick={handlePasswordSubmit}>Générer PDF</button>
                       </div>
                     </Dialog>
