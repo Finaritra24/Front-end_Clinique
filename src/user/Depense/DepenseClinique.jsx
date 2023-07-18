@@ -4,6 +4,7 @@ import NavUser from '../../nav/NavUser';
 import AjoutDepenseClinique from './AjoutDepenseClinique';
 import ListDepenseClinique from './ListDepenseClinique';
 import IfUser from '../IfUser';
+import ImportCsv from './ImportCsv';
         
 export default function DepenseClinique() {
   
@@ -43,9 +44,7 @@ export default function DepenseClinique() {
                         </div>
                     }
                 >
-                    <p className="m-0">
-                        
-                    </p>
+                    <ImportCsv/>
                 </AccordionTab>
             </Accordion>
         </div>
