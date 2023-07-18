@@ -2,7 +2,7 @@
 import html2pdf from 'html2pdf.js';
  const GeneratePdf = (htmlContent) => {
     const options = {
-      margin: 0.3,
+      margin: 1.2,
       filename: 'Facture.pdf',
       image: {
         type: 'png',
@@ -19,7 +19,8 @@ import html2pdf from 'html2pdf.js';
     };
   
     const pdfContent = '<html><head><title>Facture</title></head><body>' + htmlContent + '</body></html>';
-  
+    console.log("ito e");
+    console.log(pdfContent);
     html2pdf().from(pdfContent).set(options).save();
   };
   export default GeneratePdf;

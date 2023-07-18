@@ -1,38 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import { Accordion, AccordionTab } from 'primereact/accordion';
-import NavUser from '../../nav/NavUser';
-import AjoutAchatPatient from './AjoutAchatPatient';
-import ListAchatPatient from './ListAchatPatient';
-import IfUser from '../IfUser';
+import NavAdmin from '../../nav/NavAdmin';
+import ListBudget from './ListBudget';
+import IfAdmin from '../IfAdmin';
         
-export default function AchatPatient() {
+export default function Budget() {
   
-    const userId =IfUser();
+    const userId = IfAdmin();
   return (
     <div>
-        <NavUser/>
-        <h1>AchatPatient</h1>
+        <NavAdmin/>
+        <h1>Budget</h1>
         <div className="card">
             <Accordion activeIndex={0}>
-              <AccordionTab
-                    header={
-                        <div className="flex align-items-center">
-                            <i className="pi pi-plus mr-2"></i>
-                            <span className="vertical-align-middle">Ajouter AchatPatient</span>
-                        </div>
-                    }
-                >
-                    <AjoutAchatPatient/>
-              </AccordionTab>
                 <AccordionTab
                     header={
                         <div className="flex align-items-center">
                             <i className="pi pi-list mr-2"></i>
-                            <span className="vertical-align-middle">Liste AchatPatient</span>
+                            <span className="vertical-align-middle">Liste Budget</span>
                         </div>
                     }
                 >
-                    <ListAchatPatient/>
+                    <ListBudget/>
                 </AccordionTab>
                 <AccordionTab
                     header={

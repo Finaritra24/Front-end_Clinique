@@ -1,6 +1,7 @@
 import {BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import AccueilAdmin from "./admin/AccueilAdmin";
 import AjoutAdmin from "./admin/AjoutAdmin";
+import Budget from "./admin/budget/Budget";
 import Depense from "./admin/depense/Depense";
 import ModifDepense from "./admin/depense/ModifDepense";
 import LoginAdmin from "./admin/LoginAdmin";
@@ -13,6 +14,8 @@ import AccueilUser from "./user/AccueilUser";
 import AchatPatient from "./user/AchatPatient/AchatPatient";
 import ModifAchatPatient from "./user/AchatPatient/ModifAchatPatient";
 import AjoutUser from "./user/AjoutUser";
+import DepenseClinique from "./user/Depense/DepenseClinique";
+import ModifDepenseClinique from "./user/Depense/ModifDepenseClinique";
 import LoginUser from "./user/LoginUser";
 
 function App() {
@@ -49,6 +52,11 @@ function App() {
       {/* achatpatient */}
       <Route exact path="/clirecette" element={<AchatPatient />} />
       <Route exact path="/modifachatPatient" element={<ModifAchatPatient />} />
+      {/* achatpatient */}
+      <Route exact path="/clidepense" element={<DepenseClinique />} />
+      <Route exact path="/modifclidepense" element={<ModifDepenseClinique />} />
+      {/* budget */}
+      <Route exact path="/budget" element={<Budget />} />
     </Routes>
     </div>
     </Router>

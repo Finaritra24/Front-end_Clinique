@@ -72,10 +72,15 @@ export default function NavAdmin() {
             ]
         },
         {
+            label:'Tableau de bord',
+            icon:'pi pi-file',
+            command: () => handleNavigation("/budget"),
+        },
+        {
             label:'Deconnexion',
             icon:'pi pi-fw pi-sign-out',
             command: () => handleOnClick(),
-        },
+        }
     ];
     return (
         <div className="card flex justify-content-center">

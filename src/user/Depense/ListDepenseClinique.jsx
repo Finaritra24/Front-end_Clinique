@@ -5,28 +5,31 @@ import * as XLSX from 'xlsx';
 import { Button } from 'primereact/button';
 import GeneratePdf from '../../pdf/GeneratePdf';
 import { useNavigate} from 'react-router-dom';
-import { InputSwitch } from 'primereact/inputswitch';
-import { Dialog } from 'primereact/dialog';
+
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.17.0/dist/xlsx.full.min.js"></script>
         
-export default function ListAchatPatient() {
+export default function ListDepenseClinique() {
   //listes
-  const [achatPatients,setAchatPatients]=useState([]);
+  const [depenses,setDepenses]=useState([]);
   const navigate = useNavigate();
   useEffect(() => {
-    fetch('http://localhost:8081/listg-VAchatPatient', { credentials: 'include' })
+    fetch('http://localhost:8081/listg-VDepense', { credentials: 'include' })
       .then(response => response.json())
-      .then(data => {setAchatPatients(data);
+      .then(data => {setDepenses(data);
       })
       .catch(error => console.error(error));
   }, []);
-  
+  //Generer pdf
+  const handleDownloadPDF = () => {
+    const htmlContent = document.getElementById('partiePdf').innerHTML;
+    GeneratePdf(htmlContent);
+  };
   //Generer excel
   const generateExcel = () => {
-    const worksheet = XLSX.utils.json_to_sheet(achatPatients);
+    const worksheet = XLSX.utils.json_to_sheet(depenses);
     const workbook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(workbook, worksheet, "Liste des AchatPatients");
-    XLSX.writeFile(workbook, "listes_achatPatients.xlsx");
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Liste des Depenses");
+    XLSX.writeFile(workbook, "listes_depenses.xlsx");
   };
   //show error
   const toast = useRef(null);
@@ -35,7 +38,7 @@ export default function ListAchatPatient() {
     }
   //vers modifier
   const handleOnClick = (id) => {
-    fetch('http://localhost:8081/setCookie-AchatPatient', {
+    fetch('http://localhost:8081/setCookie-Depense', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ id }),
@@ -44,7 +47,7 @@ export default function ListAchatPatient() {
     .then(response => {
       if (response.ok) {
         // si la connexion a réussi, redirigez l'utilisateur vers une page de réussite
-        navigate('/modifachatPatient')
+        navigate('/modifclidepense')
       } else {
         // si la connexion a échoué, affichez un message d'erreur
         showError()
@@ -56,7 +59,7 @@ export default function ListAchatPatient() {
     }
 
     const deleteClick = (id) => {
-      fetch('http://localhost:8081/dropg-AchatPatient', {
+      fetch('http://localhost:8081/dropg-Depense', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id}),
@@ -88,79 +91,51 @@ export default function ListAchatPatient() {
   }, []);
 
   const dataTableRef = useRef(null);
-//Generer pdf
-  const [selectedProducts, setSelectedProducts] = useState('');
-const refpdf=useRef(null);
 
   useEffect(() => {
     // Mettre à jour la valeur du filtre lorsque currentDate change
     if (dataTableRef.current) {
-      dataTableRef.current.filter(currentDate, 'dateRecette', 'equals');
+      dataTableRef.current.filter(currentDate, 'dateDepense', 'equals');
     }
   }, [currentDate]);
-  const [rowClick, setRowClick] = useState(true);
-  const [password, setPassword] = useState('password1');
-  const [showPasswordDialog, setShowPasswordDialog] = useState(false);
-  function handlePasswordSubmit(event) {
-    const htmlContent = document.getElementById('partiePdf').innerHTML;
-    GeneratePdf(htmlContent);
-  }
-
+  
+  
   return (
-    <div>
+    <div id="partiePdf">
       <div className="card">
-      <div className="flex justify-content-center align-items-center mb-4 gap-2">
-          <InputSwitch inputId="input-rowclick" checked={rowClick} onChange={(e) => setRowClick(e.value)} />
-          <label htmlFor="input-rowclick">Row Click</label>
-      </div>
         <DataTable
           ref={dataTableRef}
-          value={achatPatients}
+          value={depenses}
           paginator
           rows={5}
           rowsPerPageOptions={[5, 10, 25, 50]}
           tableStyle={{ minWidth: '50rem' }}
-          filterDisplay="row" selectionMode={rowClick ? null : 'checkbox'} selection={selectedProducts} onSelectionChange={(e) => setSelectedProducts(e.value)}
+          filterDisplay="row"
         >
-          <Column selectionMode="multiple" headerStyle={{ width: '3rem' }}></Column>
           <Column
             filter
             filterPlaceholder="Chercher par date"
             sortable
-            field="dateRecette"
-            header="dateRecette"
+            field="dateDepense"
+            header="dateDepense"
             style={{ width: '25%' }}
           ></Column>
-                            <Column sortable filter filterPlaceholder="Chercher par nom du patient" field="nomPatient" header="nomPatient" style={{ width: '25%' }}></Column>
-                            <Column sortable field="idAchatPatient" header="idAchatPatient" style={{ width: '25%' }}></Column>
+                            <Column sortable filter filterPlaceholder="Chercher par nom utilisateur" field="nomUtilisateur" header="nomUtilisateur" style={{ width: '25%' }}></Column>
+                            <Column sortable field="idDepense" header="idDepense" style={{ width: '25%' }}></Column>
                             <Column sortable field="nom" header="nom" filter filterPlaceholder="Chercher par nom" style={{ width: '25%' }}></Column>
                             <Column sortable filter filterPlaceholder="Chercher par categorie" field="nomCateg" header="nomCateg" style={{ width: '25%' }}></Column>
                             <Column sortable field="prix" header="prix" style={{ width: '25%' }}></Column>
                             
                             <Column   field="button" header="button" style={{ width: '25%' }}
                               body={(rowData) => {
-                                  return <div><Button icon="pi pi-file-edit" onClick={() => handleOnClick(rowData.idAchatPatient)}/> <Button icon="pi pi-times" onClick={() => deleteClick(rowData.idAchatPatient)}/></div>;
+                                  return <div><Button icon="pi pi-file-edit" onClick={() => handleOnClick(rowData.idDepense)}/> <Button icon="pi pi-times" onClick={() => deleteClick(rowData.idDepense)}/></div>;
                               }} >
                             </Column>
                         </DataTable>
-                        <button onClick={() => setShowPasswordDialog(true)}>Générer PDF</button>
+                        <button onClick={handleDownloadPDF}>Générer PDF</button>
                         <button onClick={generateExcel}>Générer excel</button>
                     </div>
-                    <Dialog header="Pdf" visible={showPasswordDialog} modal onHide={() => setShowPasswordDialog(false)}>
-                      <div>
-                                <div id="partiePdf" ref={refpdf}>
-                                <DataTable value={selectedProducts} paginator rows={5} 
-                                 tableStyle={{ minWidth: '50rem' }} >
-                                <Column sortable field="nomPatient" header="nomPatient" style={{ width: '25%' }}></Column>
-                                <Column sortable field="idAchatPatient" header="idAchatPatient" style={{ width: '25%' }}></Column>
-                                <Column sortable field="nom" header="nom"  style={{ width: '25%' }}></Column>
-                                <Column sortable field="nomCateg" header="nomCateg" style={{ width: '25%' }}></Column>
-                                <Column sortable field="prix" header="prix" style={{ width: '25%' }}></Column>
-                              </DataTable>
-                              </div>
-                              <button onClick={handlePasswordSubmit}>Générer PDF</button>
-                      </div>
-                    </Dialog>
-        </div>
+              </div>
+        
   );
 }
