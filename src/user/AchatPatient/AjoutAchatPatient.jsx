@@ -31,7 +31,6 @@ export default function AjoutAchatPatient() {
     };
     sendFormData(data);
   };
-
   const sendFormData = (data) => {
     fetch('http://localhost:8081/ajoutg-AchatPatient', {
       method: 'POST',

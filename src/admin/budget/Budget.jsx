@@ -3,6 +3,7 @@ import { Accordion, AccordionTab } from 'primereact/accordion';
 import NavAdmin from '../../nav/NavAdmin';
 import ListBudget from './ListBudget';
 import IfAdmin from '../IfAdmin';
+import ListBudgetBenef from './ListBudgetBenef';
         
 export default function Budget() {
   
@@ -27,14 +28,12 @@ export default function Budget() {
                     header={
                         <div className="flex align-items-center">
                             <i className="pi pi-search mr-2"></i>
-                            <span className="vertical-align-middle">Autres</span>
+                            <span className="vertical-align-middle">Budget Benefice</span>
                             <i className="pi pi-cog ml-2 ml-2"></i>
                         </div>
                     }
                 >
-                    <p className="m-0">
-                        
-                    </p>
+                    <ListBudgetBenef/>
                 </AccordionTab>
             </Accordion>
         </div>

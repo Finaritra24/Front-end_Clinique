@@ -76,6 +76,10 @@ export default function ListAchatPatient() {
       });
       }
       const [currentDate, setCurrentDate] = useState('');
+      const [nom, setNom] = useState('');
+      const [nomPatient,setNomPatient]=useState('');
+      const [nomCateg,setNomCateg]=useState('');
+      
 
   useEffect(() => {
     const today = new Date();
@@ -85,6 +89,9 @@ export default function ListAchatPatient() {
 
     const formattedDate = `${year}-${month}-${day}`;
     setCurrentDate(formattedDate);
+    setNom('');
+    setNomPatient('');
+    setNomCateg('');
   }, []);
 
   const dataTableRef = useRef(null);
@@ -95,11 +102,11 @@ const refpdf=useRef(null);
   useEffect(() => {
     // Mettre à jour la valeur du filtre lorsque currentDate change
     if (dataTableRef.current) {
-      dataTableRef.current.filter(currentDate, 'dateRecette', 'equals');
+      dataTableRef.current.filter(currentDate, 'dateRecette', 'contains');
+      dataTableRef.current.filter(nom, 'nom', 'contains');
     }
   }, [currentDate]);
   const [rowClick, setRowClick] = useState(true);
-  const [password, setPassword] = useState('password1');
   const [showPasswordDialog, setShowPasswordDialog] = useState(false);
   function handlePasswordSubmit(event) {
     const htmlContent = document.getElementById('partiePdf').innerHTML;
@@ -125,16 +132,18 @@ const refpdf=useRef(null);
           <Column selectionMode="multiple" headerStyle={{ width: '3rem' }}></Column>
           <Column
             filter
+            filterField="dateRecette"
             filterPlaceholder="Chercher par date"
             sortable
             field="dateRecette"
             header="dateRecette"
             style={{ width: '25%' }}
           ></Column>
-                            <Column sortable filter filterPlaceholder="Chercher par nom du patient" field="nomPatient" header="nomPatient" style={{ width: '25%' }}></Column>
+          
+                            <Column sortable filter filterField="nom" filterPlaceholder="Chercher par nom " field="nom" header="nom" style={{ width: '25%' }}></Column>
+                            <Column sortable filter filterField="nomPatient" filterPlaceholder="Chercher par nom du patient" field="nomPatient" header="nomPatient" style={{ width: '25%' }}></Column>
                             <Column sortable field="idAchatPatient" header="idAchatPatient" style={{ width: '25%' }}></Column>
-                            <Column sortable field="nom" header="nom" filter filterPlaceholder="Chercher par nom" style={{ width: '25%' }}></Column>
-                            <Column sortable filter filterPlaceholder="Chercher par categorie" field="nomCateg" header="nomCateg" style={{ width: '25%' }}></Column>
+                            <Column sortable filter filterField="nomCateg" filterPlaceholder="Chercher par categorie" field="nomCateg" header="nomCateg" style={{ width: '25%' }}></Column>
                             <Column sortable field="prix" header="prix" style={{ width: '25%' }}></Column>
                             
                             <Column   field="button" header="button" style={{ width: '25%' }}

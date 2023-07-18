@@ -3,10 +3,13 @@ import { Button } from 'primereact/button';
 import { Toast } from 'primereact/toast';
 import { InputText } from 'primereact/inputtext';
 import { Divider } from 'primereact/divider';
+import { InputNumber } from 'primereact/inputnumber';
 
 export default function AjoutRecette() {
   const [nom, setNom] = useState('');
   const [selectedFile, setSelectedFile] = useState(null);
+  const[budget,setBudget]=useState('');
+  const [code,setCode]=useState('');
   const toast = useRef(null);
 
   const handleFileInputChange = (event) => {
@@ -24,6 +27,8 @@ export default function AjoutRecette() {
         const data = {
           nom: nom,
           img: base64Image,
+          budget:budget,
+          code:code
         };
 
         sendFormData(data);
@@ -74,12 +79,30 @@ export default function AjoutRecette() {
               </label>
               <InputText value={nom} onChange={(e) => setNom(e.target.value)} />
             </div>
+            <div className="flex flex-wrap  gap-2">
+              <label htmlFor="Nom" className="font-bold block mb-2">
+                Code :
+              </label>
+              <InputText value={code} onChange={(e) => setCode(e.target.value)} maxLength={3} />
+            </div>
           </div>
           <div className="w-full md:w-2">
             <Divider layout="vertical" className="hidden md:flex" />
             <Divider layout="horizontal" className="flex md:hidden" align="center" />
           </div>
           <div className="w-full md:w-5 flex flex-column align-items-s justify-content-center gap-3 py-5">
+          <div className="flex flex-wrap gap-2">
+              <label htmlFor="carburant" className="font-bold block mb-2">
+                Budget:
+              </label>
+              <InputNumber
+                inputId="minmaxfraction"
+                value={budget}
+                onValueChange={(e) => setBudget(e.value)}
+                minFractionDigits={2}
+                maxFractionDigits={2}
+              />
+            </div>
             <input type="file" name="file" accept="image/*" onChange={handleFileInputChange} />
           </div>
         </div>
